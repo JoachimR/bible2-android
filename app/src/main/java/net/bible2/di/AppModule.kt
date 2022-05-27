@@ -4,13 +4,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import net.bible2.common.Constants
 import net.bible2.data.remote.TwdApi
 import net.bible2.data.repository.TwdRepositoryImpl
 import net.bible2.domain.repository.TwdRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

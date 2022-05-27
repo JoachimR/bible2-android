@@ -8,5 +8,4 @@ interface TwdRepository {
     suspend fun getTwds(): List<TwdDto>
 
     suspend fun getTheWordFileContent(url: String): TheWordFileContent?
-
 }

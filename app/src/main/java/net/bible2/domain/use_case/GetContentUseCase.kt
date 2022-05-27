@@ -1,13 +1,13 @@
 package net.bible2.domain.use_case
 
+import java.io.IOException
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import net.bible2.common.Resource
 import net.bible2.domain.model.TheWordFileContent
 import net.bible2.domain.repository.TwdRepository
 import retrofit2.HttpException
-import java.io.IOException
-import javax.inject.Inject
 
 class GetContentUseCase @Inject constructor(
     private val repository: TwdRepository

@@ -63,5 +63,3 @@ object TheWordFileContentParser {
 
     private fun String.toNullIfEmpty() = ifEmpty { null }
 }
-
-

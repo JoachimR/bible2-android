@@ -1,6 +1,5 @@
 package net.bible2.data.remote.dto
 
-
 import com.google.gson.annotations.SerializedName
 import net.bible2.domain.model.Twd
 

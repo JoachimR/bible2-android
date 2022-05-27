@@ -1,15 +1,15 @@
 package net.bible2.data.repository
 
+import javax.inject.Inject
+import kotlin.concurrent.thread
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 import net.bible2.data.remote.TwdApi
 import net.bible2.data.remote.dto.TwdDto
 import net.bible2.domain.model.TheWordFileContent
 import net.bible2.domain.repository.TwdRepository
 import okhttp3.ResponseBody
 import retrofit2.Response
-import javax.inject.Inject
-import kotlin.concurrent.thread
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class TwdRepositoryImpl @Inject constructor(
     private val api: TwdApi

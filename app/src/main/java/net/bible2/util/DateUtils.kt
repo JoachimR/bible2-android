@@ -2,7 +2,8 @@ package net.bible2.util
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 /**
  * dateString: yyyy-MM-dd

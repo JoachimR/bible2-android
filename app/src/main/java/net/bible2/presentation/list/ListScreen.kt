@@ -1,7 +1,12 @@
 package net.bible2.presentation.list
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -16,11 +21,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import net.bible2.domain.model.Twd
-import net.bible2.presentation.AppScreen
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.Calendar
+import net.bible2.domain.model.Twd
+import net.bible2.presentation.AppScreen
 
 @Composable
 fun TwdListScreen(
@@ -36,7 +41,7 @@ fun TwdListScreen(
                     onItemClick = {
                         val encodedUrl =
                             URLEncoder.encode(twd.url, StandardCharsets.UTF_8.toString())
-                        navController.navigate(AppScreen.Content.route + "/${encodedUrl}")
+                        navController.navigate(AppScreen.Content.route + "/$encodedUrl")
                     }
                 )
             }
@@ -57,7 +62,6 @@ fun TwdListScreen(
         }
     }
 }
-
 
 @Composable
 fun ListItem(
