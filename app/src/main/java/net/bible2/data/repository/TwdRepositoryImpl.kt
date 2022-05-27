@@ -7,6 +7,9 @@ import net.bible2.domain.repository.TwdRepository
 import okhttp3.ResponseBody
 import retrofit2.Response
 import javax.inject.Inject
+import kotlin.concurrent.thread
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class TwdRepositoryImpl @Inject constructor(
     private val api: TwdApi
@@ -21,8 +24,14 @@ class TwdRepositoryImpl @Inject constructor(
         if (!response.isSuccessful) {
             return null
         }
-        val data = response.body()?.string()
 
-        return null // TODO
+        return suspendCoroutine<String?> { continuation ->
+            thread {
+                val xmlContent = response.body()?.string()
+                continuation.resume(xmlContent)
+            }
+        }?.let {
+            TheWordFileContentParser.parse(it)
+        }
     }
 }

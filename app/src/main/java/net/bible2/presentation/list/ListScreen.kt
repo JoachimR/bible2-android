@@ -1,9 +1,7 @@
-package net.bible2.presentation.twd_list
+package net.bible2.presentation.list
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -12,27 +10,33 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import net.bible2.domain.model.Twd
-import net.bible2.presentation.twd_list.components.TwdListItem
+import net.bible2.presentation.AppScreen
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import java.util.*
 
 @Composable
 fun TwdListScreen(
     navController: NavController,
-    viewModel: TwdListViewModel = hiltViewModel()
+    viewModel: ListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(sortedItemsForCurrentYear(state.twds)) { twd ->
-                TwdListItem(
+                ListItem(
                     item = twd,
                     onItemClick = {
-//                        navController.navigate(Screen.TwdDetailScreen.route + "/${twd.bible}/${twd.year}/")
+                        val encodedUrl =
+                            URLEncoder.encode(twd.url, StandardCharsets.UTF_8.toString())
+                        navController.navigate(AppScreen.Content.route + "/${encodedUrl}")
                     }
                 )
             }
@@ -51,6 +55,34 @@ fun TwdListScreen(
         if (state.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
+    }
+}
+
+
+@Composable
+fun ListItem(
+    item: Twd,
+    onItemClick: (Twd) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onItemClick(item) }
+            .padding(20.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = "[${item.lang}]",
+            style = MaterialTheme.typography.bodyMedium,
+            overflow = TextOverflow.Ellipsis
+        )
+        Text(
+            text = item.title,
+            fontStyle = FontStyle.Italic,
+            textAlign = TextAlign.End,
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.align(Alignment.CenterVertically)
+        )
     }
 }
 

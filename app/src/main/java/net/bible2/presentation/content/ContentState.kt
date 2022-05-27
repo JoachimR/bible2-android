@@ -1,8 +1,8 @@
-package net.bible2.presentation.twd_detail
+package net.bible2.presentation.content
 
 import net.bible2.domain.model.TheWordFileContent
 
-data class TwdDetailState(
+data class ContentState(
     val isLoading: Boolean = false,
     val theWordFileContent: TheWordFileContent? = null,
     val error: String = ""

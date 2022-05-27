@@ -8,8 +8,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import net.bible2.presentation.Screen
-import net.bible2.presentation.twd_list.TwdListScreen
+import net.bible2.common.Constants
+import net.bible2.presentation.AppScreen
+import net.bible2.presentation.content.ContentScreen
+import net.bible2.presentation.list.TwdListScreen
 import net.bible2.ui.theme.Bible2Theme
 
 @AndroidEntryPoint
@@ -23,18 +25,18 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.TwdListScreen.route
+                        startDestination = AppScreen.TwdList.route
                     ) {
                         composable(
-                            route = Screen.TwdListScreen.route
+                            route = AppScreen.TwdList.route
                         ) {
                             TwdListScreen(navController)
                         }
-//                        composable(
-//                            route = Screen.TwdDetailScreen.route + "/{bible}" + "/{year}"
-//                        ) {
-//                           TwdDetailScreen(navController)
-//                        }
+                        composable(
+                            route = "${AppScreen.Content.route}/{${Constants.PARAM_URL}}"
+                        ) {
+                            ContentScreen()
+                        }
                     }
                 }
             }

@@ -25,8 +25,8 @@ object TheWordFileContentParser {
         const val ref = "ref"
     }
 
-    fun parse(string: String): TheWordFileContent? {
-        val content = Jsoup.parse(string).body().getElementsByTag(XmlKeys.thewordfile)
+    fun parse(xmlContent: String): TheWordFileContent? {
+        val content = Jsoup.parse(xmlContent).body().getElementsByTag(XmlKeys.thewordfile)
         val bible = content.attr(XmlKeys.bible).takeUnless { it.isEmpty() } ?: return null
         val year = content.attr(XmlKeys.year).takeUnless { it.isEmpty() } ?: return null
         val yearInt = try {
