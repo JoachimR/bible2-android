@@ -1,12 +1,12 @@
 package net.bible2.data.repository
 
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import net.bible2.domain.model.Parol
 import net.bible2.domain.model.TheWord
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
-import java.io.BufferedReader
-import java.io.InputStreamReader
 
 class TheWordFileContentParserTest {
 

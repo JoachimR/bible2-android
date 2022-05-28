@@ -1,9 +1,6 @@
 package net.bible2.presentation.list
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,9 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -60,33 +55,6 @@ fun TwdListScreen(
         if (state.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
-    }
-}
-
-@Composable
-fun ListItem(
-    item: Twd,
-    onItemClick: (Twd) -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onItemClick(item) }
-            .padding(20.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = "[${item.lang}]",
-            style = MaterialTheme.typography.bodyMedium,
-            overflow = TextOverflow.Ellipsis
-        )
-        Text(
-            text = item.title,
-            fontStyle = FontStyle.Italic,
-            textAlign = TextAlign.End,
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.align(Alignment.CenterVertically)
-        )
     }
 }
 
