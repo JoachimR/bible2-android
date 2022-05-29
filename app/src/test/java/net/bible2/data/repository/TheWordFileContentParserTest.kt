@@ -33,7 +33,7 @@ class TheWordFileContentParserTest {
         val rawString = readTwd(fileName)
         val parsed = TheWordFileContentParser.parse(rawString)!!
 
-        assertEquals(expectedKey, parsed.key)
+        assertEquals(expectedKey, parsed.bible)
         assertEquals(expectedYear, parsed.year)
         assertEquals(365, parsed.items.size)
 
@@ -46,9 +46,8 @@ class TheWordFileContentParserTest {
         with(theWord) {
             println(theWord)
             assertEquals(index + 1, day)
-            assertEquals(2, parols.size)
-            checkParol(parols[0])
-            checkParol(parols[1])
+            checkParol(parol0)
+            checkParol(parol1)
         }
     }
 

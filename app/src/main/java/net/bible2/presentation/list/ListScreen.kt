@@ -16,8 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 import java.util.Calendar
 import net.bible2.domain.model.Twd
 import net.bible2.presentation.AppScreen
@@ -34,9 +32,9 @@ fun TwdListScreen(
                 ListItem(
                     item = twd,
                     onItemClick = {
-                        val encodedUrl =
-                            URLEncoder.encode(twd.url, StandardCharsets.UTF_8.toString())
-                        navController.navigate(AppScreen.Content.route + "/$encodedUrl")
+                        navController.navigate(
+                            AppScreen.Content.route + "/${twd.bible}" + "/${twd.year}"
+                        )
                     }
                 )
             }
@@ -61,5 +59,5 @@ fun TwdListScreen(
 private fun sortedItemsForCurrentYear(items: List<Twd>): List<Twd> =
     with(Calendar.getInstance()[Calendar.YEAR]) {
         items.filter { it.year == this }
-            .sortedWith(compareBy({ it.lang }, { it.title }))
+            .sortedWith(compareBy({ it.language }, { it.name }))
     }

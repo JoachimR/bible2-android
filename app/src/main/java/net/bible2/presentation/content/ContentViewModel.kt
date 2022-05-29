@@ -9,6 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import net.bible2.Bible
+import net.bible2.Year
 import net.bible2.common.Constants
 import net.bible2.common.Resource
 import net.bible2.domain.use_case.GetContentUseCase
@@ -23,13 +25,15 @@ class ContentViewModel @Inject constructor(
     val state: State<ContentState> = _state
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_URL)?.let { url ->
-            getTwd(url)
+        savedStateHandle.get<Bible>(Constants.PARAM_BIBLE)?.let { bible ->
+            savedStateHandle.get<Year>(Constants.PARAM_YEAR)?.let { year ->
+                getTwd(bible, year)
+            }
         }
     }
 
-    private fun getTwd(url: String) {
-        getContentUseCase(url).onEach { result ->
+    private fun getTwd(bible: Bible, year: Year) {
+        getContentUseCase(bible, year).onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.value = ContentState(theWordFileContent = result.data)

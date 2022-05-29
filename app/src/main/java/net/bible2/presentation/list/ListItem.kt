@@ -28,13 +28,13 @@ fun ListItem(
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
-            text = "[${item.lang}]",
+            text = "[${item.language}]",
             style = MaterialTheme.typography.bodyMedium,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(end = 8.dp)
         )
         Text(
-            text = item.title,
+            text = item.name,
             textAlign = TextAlign.End,
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.align(Alignment.CenterVertically)

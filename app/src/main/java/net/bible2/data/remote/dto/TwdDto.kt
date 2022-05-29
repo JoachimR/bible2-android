@@ -5,7 +5,7 @@ import net.bible2.domain.model.Twd
 
 data class TwdDto(
     @SerializedName("year") val year: Int,
-    @SerializedName("lang") val language: String,
+    @SerializedName("lang") val lang: String,
     @SerializedName("bible") val bible: String,
     @SerializedName("biblename") val bibleName: String,
     @SerializedName("url") val url: String
@@ -13,8 +13,8 @@ data class TwdDto(
 
 fun TwdDto.toTwd() = Twd(
     year = year,
-    lang = language,
-    key = bible,
-    title = bibleName,
+    language = lang,
+    bible = bible,
+    name = bibleName,
     url = url
 )

@@ -38,7 +38,7 @@ object TheWordFileContentParser {
             .flatMap { it.getElementsByTag(XmlKeys.theword) }
             .mapNotNull(::parseTheWord)
         return TheWordFileContent(
-            key = bible,
+            bible = bible,
             year = yearInt,
             items = items
         )
@@ -48,10 +48,14 @@ object TheWordFileContentParser {
         val day = dateStringToDayOfYear(element.attr(XmlKeys.date)) ?: return null
         val title = element.getElementsByTag(XmlKeys.title).text().toNullIfEmpty()
         val parols = element.getElementsByTag(XmlKeys.parol).map(::parseParol)
+        if (parols.size != 2) {
+            return null
+        }
         return TheWord(
             day = day,
             title = title,
-            parols = parols
+            parol0 = parols[0],
+            parol1 = parols[1],
         )
     }
 

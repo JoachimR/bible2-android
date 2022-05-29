@@ -1,6 +1,7 @@
 package net.bible2.di
 
 import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,6 +12,8 @@ import net.bible2.common.Constants
 import net.bible2.data.remote.TwdApi
 import net.bible2.data.remote.UseLocalTwdJsonInterceptor
 import net.bible2.data.repository.TwdRepositoryImpl
+import net.bible2.data.room.AppDatabase
+import net.bible2.data.room.Entities
 import net.bible2.domain.repository.TwdRepository
 import net.bible2.util.isDebugMode
 import okhttp3.OkHttpClient
@@ -41,7 +44,27 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTwdRepository(api: TwdApi): TwdRepository {
-        return TwdRepositoryImpl(api)
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(appContext, AppDatabase::class.java, "bible2-db").build()
+    }
+
+    @Provides
+    fun provideTwdEntityDao(db: AppDatabase): Entities.TwdEntity.AsDao {
+        return db.twdEntity()
+    }
+
+    @Provides
+    fun provideTheWordEntityDao(db: AppDatabase): Entities.TheWordEntity.AsDao {
+        return db.theWordEntity()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTwdRepository(
+        twdEntityDao: Entities.TwdEntity.AsDao,
+        theWordEntityDao: Entities.TheWordEntity.AsDao,
+        api: TwdApi
+    ): TwdRepository {
+        return TwdRepositoryImpl(twdEntityDao, theWordEntityDao, api)
     }
 }

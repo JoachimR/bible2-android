@@ -17,9 +17,11 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import net.bible2.common.Constants
 import net.bible2.presentation.AppScreen
@@ -57,7 +59,13 @@ private fun AppScaffold() {
                     TwdListScreen(navController)
                 }
                 composable(
-                    route = "${AppScreen.Content.route}/{${Constants.PARAM_URL}}"
+                    route = AppScreen.Content.route +
+                        "/{${Constants.PARAM_BIBLE}}" +
+                        "/{${Constants.PARAM_YEAR}}",
+                    arguments = listOf(
+                        navArgument(Constants.PARAM_BIBLE) { type = NavType.StringType },
+                        navArgument(Constants.PARAM_YEAR) { type = NavType.IntType },
+                    )
                 ) {
                     ContentScreen()
                 }

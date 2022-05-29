@@ -4,6 +4,8 @@ import java.io.IOException
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import net.bible2.Bible
+import net.bible2.Year
 import net.bible2.common.Resource
 import net.bible2.domain.model.TheWordFileContent
 import net.bible2.domain.repository.TwdRepository
@@ -12,10 +14,13 @@ import retrofit2.HttpException
 class GetContentUseCase @Inject constructor(
     private val repository: TwdRepository
 ) {
-    operator fun invoke(url: String): Flow<Resource<TheWordFileContent>> = flow {
+    operator fun invoke(
+        bible: Bible,
+        year: Year
+    ): Flow<Resource<TheWordFileContent>> = flow {
         try {
             emit(Resource.Loading())
-            repository.getTheWordFileContent(url)?.let { content ->
+            repository.getTheWordFileContent(bible, year)?.let { content ->
                 emit(Resource.Success(content))
             }
         } catch (e: HttpException) {
