@@ -10,9 +10,12 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import net.bible2.Bible
+import net.bible2.DayOfYear
+import net.bible2.DaysInAYear
 import net.bible2.Year
 import net.bible2.common.Constants
 import net.bible2.common.Resource
+import net.bible2.domain.model.TheWord
 import net.bible2.domain.use_case.GetContentUseCase
 
 @HiltViewModel
@@ -30,6 +33,18 @@ class ContentViewModel @Inject constructor(
                 getTwd(bible, year)
             }
         }
+    }
+
+    fun getForDay(dayOfYear: DayOfYear): TheWord? {
+        val index = dayOfYear - 1
+        if (index < 0 || index >= DaysInAYear) {
+            return null
+        }
+        val items = state.value.theWordFileContent?.items ?: return null
+        if (index >= items.size) {
+            return null
+        }
+        return items[index]
     }
 
     private fun getTwd(bible: Bible, year: Year) {

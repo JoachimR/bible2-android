@@ -8,12 +8,19 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
+import net.bible2.DaysInAYear
+import net.bible2.util.currentDayOfYear
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun ContentScreen(
     viewModel: ContentViewModel = hiltViewModel()
@@ -44,7 +51,15 @@ fun ContentScreen(
                             .align(Alignment.Center)
                     )
                 } else {
-                    Text(state.theWordFileContent.items[0].toString())
+                    val pagerState = rememberPagerState()
+                    HorizontalPager(count = DaysInAYear, state = pagerState) { index ->
+                        val dayOfYear = index + 1
+                        Day(viewModel.getForDay(dayOfYear = dayOfYear), dayOfYear = dayOfYear)
+                    }
+                    val key = currentDayOfYear()
+                    LaunchedEffect(key1 = key, block = {
+                        pagerState.scrollToPage(key)
+                    })
                 }
             }
         }

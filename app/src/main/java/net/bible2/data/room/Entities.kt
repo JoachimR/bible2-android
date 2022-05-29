@@ -45,12 +45,12 @@ sealed class Entities {
 
     @Entity(
         tableName = "the_word",
-        primaryKeys = ["bible", "year", "day"]
+        primaryKeys = ["bible", "year", "dayOfYear"]
     )
     data class TheWordEntity(
         @ColumnInfo(name = "bible") val bible: Bible,
         @ColumnInfo(name = "year") val year: Year,
-        @ColumnInfo(name = "day") val day: DayOfYear,
+        @ColumnInfo(name = "dayOfYear") val dayOfYear: DayOfYear,
 
         @ColumnInfo(name = "title") val title: String?,
 
@@ -66,10 +66,10 @@ sealed class Entities {
         interface AsDao {
             @Query(
                 "SELECT * FROM the_word" +
-                    " WHERE bible = :bible AND year = :year AND day = :day" +
+                    " WHERE bible = :bible AND year = :year AND dayOfYear= :dayOfYear" +
                     " LIMIT 1"
             )
-            fun find(bible: Bible, year: Int, day: DayOfYear): TheWordEntity?
+            fun find(bible: Bible, year: Int, dayOfYear: DayOfYear): TheWordEntity?
 
             @Query(
                 "SELECT * FROM the_word WHERE bible = :bible AND year = :year"

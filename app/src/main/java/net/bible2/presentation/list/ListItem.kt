@@ -24,7 +24,7 @@ fun ListItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick(item) }
-            .padding(20.dp),
+            .padding(16.dp),
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
