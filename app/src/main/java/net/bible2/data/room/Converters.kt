@@ -19,7 +19,6 @@ fun TheWord.toTheWordEntity(bible: Bible, year: Year) =
         bible = bible,
         year = year,
         dayOfYear = dayOfYear,
-        title = title,
         intro0 = parol0.intro,
         text0 = parol0.text,
         ref0 = parol0.ref,
@@ -38,7 +37,6 @@ fun Entities.TwdEntity.toTwd() = Twd(
 
 fun Entities.TheWordEntity.toTheWord() = TheWord(
     dayOfYear = dayOfYear,
-    title = title,
     parol0 = Parol(intro = intro0, text = text0, ref = ref0),
     parol1 = Parol(intro = intro1, text = text1, ref = ref1)
 )

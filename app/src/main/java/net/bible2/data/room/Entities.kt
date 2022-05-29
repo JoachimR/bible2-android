@@ -52,8 +52,6 @@ sealed class Entities {
         @ColumnInfo(name = "year") val year: Year,
         @ColumnInfo(name = "dayOfYear") val dayOfYear: DayOfYear,
 
-        @ColumnInfo(name = "title") val title: String?,
-
         @ColumnInfo(name = "intro0") val intro0: String?,
         @ColumnInfo(name = "text0") val text0: String,
         @ColumnInfo(name = "ref0") val ref0: String,

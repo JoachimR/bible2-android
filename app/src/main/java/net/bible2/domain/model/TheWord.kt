@@ -10,7 +10,6 @@ data class Parol(
 
 data class TheWord(
     val dayOfYear: DayOfYear,
-    val title: String?,
     val parol0: Parol,
     val parol1: Parol
 )

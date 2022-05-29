@@ -46,14 +46,12 @@ object TheWordFileContentParser {
 
     private fun parseTheWord(element: Element): TheWord? {
         val dayOfYear = dateStringToDayOfYear(element.attr(XmlKeys.date)) ?: return null
-        val title = element.getElementsByTag(XmlKeys.title).text().toNullIfEmpty()
         val parols = element.getElementsByTag(XmlKeys.parol).map(::parseParol)
         if (parols.size != 2) {
             return null
         }
         return TheWord(
             dayOfYear = dayOfYear,
-            title = title,
             parol0 = parols[0],
             parol1 = parols[1],
         )

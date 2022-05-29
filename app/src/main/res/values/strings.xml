@@ -2,4 +2,6 @@
     <string name="app_name">Bible2</string>
     <string name="cd_share">Share</string>
     <string name="cd_menu">Menu</string>
+    <string name="day_content_not_found">No content found for this day</string>
+    <string name="no_content_found">No content found</string>
 </resources>
