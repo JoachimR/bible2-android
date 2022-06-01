@@ -9,7 +9,7 @@ import retrofit2.http.Url
 
 interface TwdApi {
 
-    @GET("twd11/?format=json")
+    @GET("twd11/current?format=json")
     suspend fun getTwds(): List<TwdDto>
 
     @Streaming
