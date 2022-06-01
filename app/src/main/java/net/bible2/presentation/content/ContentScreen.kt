@@ -33,10 +33,7 @@ fun ContentScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            return
-        }
-
-        if (state.error.isNotBlank()) {
+        } else if (state.error.isNotBlank()) {
             Text(
                 text = state.error,
                 color = MaterialTheme.colorScheme.error,
@@ -46,33 +43,31 @@ fun ContentScreen(
                     .padding(horizontal = 20.dp)
                     .align(Alignment.Center)
             )
-            return
+        } else {
+            if (state.theWordFileContent == null) {
+                Text(
+                    text = stringResource(R.string.no_content_found),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .align(Alignment.Center)
+                )
+            } else {
+                val pagerState = rememberPagerState()
+                HorizontalPager(count = DaysInAYear, state = pagerState) { index ->
+                    val dayOfYear = index + 1
+                    PageDisplay(
+                        viewModel.getForDay(dayOfYear = dayOfYear),
+                        dayOfYear = dayOfYear
+                    )
+                }
+                val key = currentDayOfYear()
+                LaunchedEffect(key1 = key, block = {
+                    pagerState.scrollToPage(key)
+                })
+            }
         }
-
-        if (state.theWordFileContent == null) {
-            Text(
-                text = stringResource(R.string.no_content_found),
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-            return
-        }
-
-        val pagerState = rememberPagerState()
-        HorizontalPager(count = DaysInAYear, state = pagerState) { index ->
-            val dayOfYear = index + 1
-            PageDisplay(
-                viewModel.getForDay(dayOfYear = dayOfYear),
-                dayOfYear = dayOfYear
-            )
-        }
-        val key = currentDayOfYear()
-        LaunchedEffect(key1 = key, block = {
-            pagerState.scrollToPage(key)
-        })
     }
 }
 
