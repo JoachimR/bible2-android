@@ -11,16 +11,23 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,6 +57,7 @@ private fun AppScaffold() {
     val navController = rememberNavController()
     Scaffold(
         topBar = createCenterAlignedTopAppBar(),
+        bottomBar = createBottomBar(navController),
         content = { innerPadding ->
             NavHost(
                 navController = navController,
@@ -72,9 +80,38 @@ private fun AppScaffold() {
                 ) {
                     ContentScreen()
                 }
+                composable(
+                    route = AppScreen.Info.route
+                ) {
+                    Text(text = "Info")
+                }
             }
         }
     )
+}
+
+private val bottomNavigationScreens = listOf(AppScreen.TwdList, AppScreen.Info)
+
+private fun createBottomBar(navController: NavHostController): @Composable () -> Unit = {
+    NavigationBar {
+        bottomNavigationScreens.forEach { screen ->
+            NavigationBarItem(
+                label = { Text(stringResource(screen.resourceId)) },
+                onClick = { navController.navigate(screen.route) },
+                icon = { Icon(imageVector = screen.icon, contentDescription = null) },
+                selected = isScreenSelected(screen, navController),
+            )
+        }
+    }
+}
+
+@Composable
+private fun isScreenSelected(
+    screen: AppScreen,
+    navController: NavHostController
+): Boolean {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.hierarchy?.any { it.route == screen.route } == true
 }
 
 private fun createCenterAlignedTopAppBar(): @Composable () -> Unit = {

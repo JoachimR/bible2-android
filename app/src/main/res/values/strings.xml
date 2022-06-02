@@ -4,4 +4,7 @@
     <string name="cd_menu">Menu</string>
     <string name="day_content_not_found">No content found for this day</string>
     <string name="no_content_found">No content found</string>
+    <string name="screen_today">Today</string>
+    <string name="screen_info">Info</string>
+    <string name="screen_content">content</string>
 </resources>
