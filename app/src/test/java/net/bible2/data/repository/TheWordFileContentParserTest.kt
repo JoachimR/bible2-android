@@ -45,7 +45,7 @@ class TheWordFileContentParserTest {
     private fun checkItem(index: Int, theWord: TheWord) {
         with(theWord) {
             println(theWord)
-            assertEquals(index + 1, day)
+            assertEquals(index + 1, dayOfYear)
             checkParol(parol0)
             checkParol(parol1)
         }
