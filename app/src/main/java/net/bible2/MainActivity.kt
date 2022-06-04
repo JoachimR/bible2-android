@@ -1,16 +1,24 @@
 package net.bible2
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -19,6 +27,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -118,14 +130,6 @@ private fun createCenterAlignedTopAppBar(): @Composable () -> Unit = {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
         title = { Text(LocalContext.current.getString(R.string.app_name)) },
-        navigationIcon = {
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = LocalContext.current.getString(R.string.cd_menu)
-                )
-            }
-        },
         actions = {
             IconButton(onClick = { /* doSomething() */ }) {
                 Icon(
@@ -133,6 +137,54 @@ private fun createCenterAlignedTopAppBar(): @Composable () -> Unit = {
                     contentDescription = LocalContext.current.getString(R.string.cd_share)
                 )
             }
+            AppDropdown()
         }
     )
+}
+
+@Composable
+private fun AppDropdown() {
+    val context = LocalContext.current
+    var expanded by remember { mutableStateOf(false) }
+
+    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+        IconButton(onClick = { expanded = true }) {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = LocalContext.current.getString(R.string.cd_more)
+            )
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text("Settings") },
+                onClick = {
+                    Toast.makeText(context, "Settings", Toast.LENGTH_SHORT)
+                        .show()
+                },
+                leadingIcon = {
+                    Icon(
+                        Icons.Outlined.Settings,
+                        contentDescription = null
+                    )
+                }
+            )
+            MenuDefaults.Divider()
+            DropdownMenuItem(
+                text = { Text("Info") },
+                onClick = {
+                    Toast.makeText(context, "Info", Toast.LENGTH_SHORT)
+                        .show()
+                },
+                leadingIcon = {
+                    Icon(
+                        Icons.Outlined.Info,
+                        contentDescription = null
+                    )
+                },
+            )
+        }
+    }
 }
