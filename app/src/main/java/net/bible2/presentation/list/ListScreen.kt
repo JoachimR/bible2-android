@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import java.util.Calendar
+import net.bible2.AppScreen
 import net.bible2.domain.model.Twd
-import net.bible2.presentation.AppScreen
 
 @Composable
-fun TwdListScreen(
+fun ListScreen(
     navController: NavController,
     viewModel: ListViewModel = hiltViewModel()
 ) {

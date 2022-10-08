@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package net.bible2.presentation.content
+package net.bible2.presentation.content.compose
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import net.bible2.domain.model.Parol
 import net.bible2.domain.model.TheWord
+import net.bible2.presentation.content.ScrollingColumn
 
 class TheWordPreviewParameterProvider : PreviewParameterProvider<TheWord> {
     override val values = sequenceOf(
@@ -48,7 +49,7 @@ class TheWordPreviewParameterProvider : PreviewParameterProvider<TheWord> {
 @Composable
 fun TheWordDisplay(@PreviewParameter(TheWordPreviewParameterProvider::class) theWord: TheWord) {
     ScrollingColumn {
-        DateHeader(theWord.dayOfYear)
+        ContentDateHeader(theWord.dayOfYear)
         TextCard(theWord.parol0)
         Spacer(modifier = Modifier.height(16.dp))
         TextCard(theWord.parol1)

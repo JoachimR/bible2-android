@@ -1,4 +1,4 @@
-package net.bible2.presentation.content
+package net.bible2.presentation.content.compose
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -14,7 +14,7 @@ import net.bible2.DayOfYear
 import net.bible2.util.textForDayOfYear
 
 @Composable
-fun DateHeader(dayOfYear: DayOfYear) {
+fun ContentDateHeader(dayOfYear: DayOfYear) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
